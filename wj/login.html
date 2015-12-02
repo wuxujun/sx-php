@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ include file="./include/common_inc.html"%>
+<%
+  //String[] LEVEL_LABLE = {"01", "01", "00"};
+  //FOLDER_ALL_EXPEND = 1; 
+
+  String TITLE = S_TITLE + " - Internships Program Application Admin";
+  String DESC  = S_DESC  + " ";
+  String KEYWS = S_KEYWS + ",";
+%>
+
+<!doctype html>
+<html class="no-js" lang="zh-cn">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=320, user-scalable=0, minimal-ui"/>
+  <meta content="telephone=no" name="format-detection" />
+<!--<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+	<title><%=TITLE%></title>
+	<meta name="description" content="<%=DESC%>">
+	<meta name="Keywords" content="<%=KEYWS%>">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./bootstrap/3.0.1/css/bootstrap.css">
+    <script src="./bootstrap/jquery/jquery-1.7.2.min.js"></script>
+    <script src="./bootstrap/3.0.1/js/bootstrap.min.js"></script> 
+    <!--[if lt IE 9]>
+        <script src="./bootstrap/ie.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="./css/user.css"/>
+    <%@ include file="./include/html_head_inc.html"%>
+</head>
+
+<body>
+
+  <section style="max-width:600px; margin:50px">
+  <form name="app" action="intern_app_action.html" method="post">
+    <input type="hidden" name="action" value="app_query">
+    <div class="head">
+    </div>
+
+    <div class="row center">
+      <h1>Please input username and password.</h1>
+      <dl class="col-xs-12 col-md-12">
+        <dt>Username *</dt>
+        <dd><input type="text" class="form-control width40" name="username" placeholder=""></dd>
+      </dl>
+    </div>
+
+    <div class="row center">
+      <dl class="col-xs-12 col-md-12">
+        <dt>Password *</dt>
+        <dd><input type="password" class="form-control width40" name="password" placeholder=""></dd>
+      </dl>
+    </div>
+
+
+    <div>
+      <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary"> Submit </button>
+    <br><br>
+    <a href="intern_app.html">Go to Application Form</a>
+  </form>
+  </section>
+</body>
+</html>

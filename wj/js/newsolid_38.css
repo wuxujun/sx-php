@@ -1,0 +1,39 @@
+﻿body {
+background: #fff url("images/newbg/oldbg2-bg.jpg") repeat-x;
+}
+#jqContent {
+width:920px;
+background:url("images/newbg/oldbg2.jpg") no-repeat top center;
+padding-top:10px;
+margin:0 auto;
+}
+#headerCss {
+background: white no-repeat;
+width: 920px;
+margin: 0 auto;
+}
+#mainCss {
+background: white;
+width: 920px;
+margin: 0 auto;
+}
+#footercss {
+width: 920px;
+margin: 0 auto;
+background: white;
+height: 20px;
+}
+.surveyhead h1{
+color:#19a8ee;
+}
+
+input.submitbutton {
+border:1px solid #0492d6;
+background:#13a5ec;
+}
+input.submitbutton_hover
+{
+    background:#1eb0f6; color:#fff !important;
+}
+legend{display:none;}
+fieldset{border:0;}
