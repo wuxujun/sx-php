@@ -52,7 +52,8 @@
 				<fieldset style="width: 48%; float: left;">
 				<label><?php echo lang('v_man_nearby_type') ?></label>
 				<select name='type' id='type'>
-					<option value="0" Selected>默认</option>
+					<option value="0" Selected>商圈</option>
+					<option value="1">地铁</option>
 				</select>
 				</fieldset>
 				<fieldset style="width: 48%; float: right;">

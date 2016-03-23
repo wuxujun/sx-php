@@ -30,7 +30,8 @@ $pid = array('name' =>'id' ,'id'=>'id','value'=>set_value('id',isset($nearbyInfo
 				<fieldset style="width: 48%; float: left;">
 				<label><?php echo lang('v_man_nearby_type') ?></label>
 				<select name='type' id='type'>
-					<option value="0" Selected>默认</option>
+					<option value="0" <?php if(isset($nearbyInfo)&&$nearbyInfo->type=='0'){ echo "selected";}?>>商圈</option>
+					<option value="1" <?php if(isset($nearbyInfo)&&$nearbyInfo->type=='1'){ echo "selected";}?>>地铁</option>
 				</select>
 				</fieldset>
 				<fieldset style="width: 48%; float: right;">

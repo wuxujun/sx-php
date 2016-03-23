@@ -49,12 +49,13 @@ class Resume_model extends CI_Model
 			'sex'=>$content->sex,
 			'srcPlace'=>$content->srcPlace,
 			'brithday'=>$content->brithday,
+			'schoolCode'=>$content->schoolCode,
 			'school'=>$content->school,
-			'schoolName'=>$content->schoolName,
+			'specialtyCode'=>$content->specialtyCode,
 			'specialty'=>$content->specialty,
-			'specialtyName'=>$content->specialtyName,
 			'graduation'=>$content->graduation,
-			'eduBackground'=>$content->eduBackground,
+			'educationalCode'=>$content->educationalCode,
+			'educational'=>$content->educational,
 			'gradePoint'=>$content->gradePoint,
 			'mobile'=>$content->mobile,
 			'email'=>$content->email,
@@ -71,12 +72,13 @@ class Resume_model extends CI_Model
 			'sex'=>$content->sex,
 			'srcPlace'=>$content->srcPlace,
 			'brithday'=>$content->brithday,
+			'schoolCode'=>$content->schoolCode,
 			'school'=>$content->school,
-			'schoolName'=>$content->schoolName,
+			'specialtyCode'=>$content->specialtyCode,
 			'specialty'=>$content->specialty,
-			'specialtyName'=>$content->specialtyName,
 			'graduation'=>$content->graduation,
-			'eduBackground'=>$content->eduBackground,
+			'educationalCode'=>$content->educationalCode,
+			'educational'=>$content->educational,
 			'gradePoint'=>$content->gradePoint,
 			'mobile'=>$content->mobile,
 			'email'=>$content->email,
@@ -108,6 +110,7 @@ class Resume_model extends CI_Model
 			'officeName'=>$content->officeName,
 			'beginTime'=>$content->beginTime,
 			'endTime'=>$content->endTime,
+			'content'=>$content->msg,
 			'addtime'=>date('Y-m-d H:i:s')
 		);
 		if ($this->db->insert('resume_work', $arrayName)) {
@@ -148,10 +151,11 @@ class Resume_model extends CI_Model
 		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
 		
 		$arrayName = array('mid' => $content->mid,
-			'orgName'=>$content->companyName,
+			'orgName'=>$content->orgName,
 			'officeName'=>$content->officeName,
 			'beginTime'=>$content->beginTime,
 			'endTime'=>$content->endTime,
+			'content'=>$content->msg,
 			'addtime'=>date('Y-m-d H:i:s')
 		 );
 		if ($this->db->insert('resume_life', $arrayName)) {
@@ -168,7 +172,7 @@ class Resume_model extends CI_Model
 			'content'=>$msg,
 			'addtime'=>date('Y-m-d H:i:s')
 		 );
-		$this->db->insert('resume_info',$arrayName);
+		$this->db->insert('resume_life_info',$arrayName);
 	}
 
 	function getMemberLife($content)
@@ -204,6 +208,28 @@ class Resume_model extends CI_Model
 	{
 		$sql="select *  from `T_resume_honor`  where mid = '".$content->mid."' ";
 		$sql=$sql."  order by hid desc ";
+		$query=$this->db->query($sql);
+		return $query;
+	}
+
+	function addMemberLang($content)
+	{
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		
+		$arrayName = array('mid' => $content->mid,
+			'title'=>$content->title,
+			'content'=>$content->msg,
+			'level'=>$content->level,
+			'levelCode'=>$content->levelCode,
+			'addtime'=>date('Y-m-d H:i:s')
+		 );
+		$this->db->insert('resume_lang',$arrayName);
+	}
+
+	function getMemberLang($content)
+	{
+		$sql="select *  from `T_resume_lang`  where mid = '".$content->mid."' ";
+		$sql=$sql."  order by lid desc ";
 		$query=$this->db->query($sql);
 		return $query;
 	}

@@ -29,7 +29,7 @@ class Category_model extends CI_Model
 	}
 
 	function getCategoryForPage($content){
-		$sql="select * from `T_category` limit ".$content->start.",".$content->end." ";
+		$sql="select id,type,code,category,parent_code,top,status as state from `T_category` limit ".$content->start.",".$content->end." ";
 		$query=$this->db->query($sql);
 		return $query;
 	}
@@ -52,6 +52,13 @@ class Category_model extends CI_Model
 	function getParentCodes()
 	{
 		$sql="select code,category as title from `T_category` where parent_code='30' ";
+		$query=$this->db->query($sql);
+		return $query;
+	}
+
+	function getCateForType($type)
+	{
+		$sql="select code,category as title from `T_category` where type='".$type."' ";
 		$query=$this->db->query($sql);
 		return $query;
 	}

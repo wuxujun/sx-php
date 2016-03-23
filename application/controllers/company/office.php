@@ -52,6 +52,8 @@ class Office  extends CI_Controller {
 		$data['weeks']=$this->configs_model->getConfigsForType('2');
 		$data['edus']=$this->configs_model->getConfigsForType('3');
 		$data['citys']=$this->city_model->getCityCodes();
+		$data['rates']=$this->category_model->getCateForType("40");
+		
 		
 		$this->load->view('company/officeEdit',$data);
 	}
@@ -59,6 +61,14 @@ class Office  extends CI_Controller {
 
 	function cateSel($cateid){
 		$data=$this->category_model->getCateCodes($cateid)->result();
+		$str='';
+		foreach ($data as $row) {
+			$str.='<option value="'.$row->code.'">'.$row->title.'</option>';
+		}
+		echo $str;
+	}
+	function rateSel($cid){
+		$data=$this->category_model->getCateCodes($cid)->result();
 		$str='';
 		foreach ($data as $row) {
 			$str.='<option value="'.$row->code.'">'.$row->title.'</option>';

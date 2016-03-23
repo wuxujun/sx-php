@@ -144,8 +144,20 @@ $remark = array (
 				</fieldset>
 				<fieldset style="width: 48%; float: left;">
 				<label><?php echo lang('v_man_office_rate') ?></label><?php echo form_error('rate'); ?>
-				<input type="text" id='rateForm' name='ratename' class="datainp">
-				<input type="hidden" id='rateValue' name='rate' value="<?php if(isset($officeInfo)) echo $officeInfo->rate?>">
+				<select name='rateType' id='rateType' style="width:50%">
+					<option value="0" Selected><?php echo lang('v_man_office_rateTypeSelect') ?></option>
+					<option value="4010">时薪</option>
+					<option value="4020">日薪</option>
+					<option value="4030">月薪</option>
+				</select>
+				<select name='rate' id='rate'>
+					<option value="0" Selected><?php echo lang('v_man_office_rateSelect') ?></option>
+					<?php if(isset($rates)):?>
+				<?php foreach($rates->result() as $row) {?>
+					<option value="<?php echo $row->code; ?>"
+						<?php if(isset($officeInfo)&&$officeInfo->rate== $row->code){echo "Selected";} ?>><?php echo $row->title;?></option>
+				<?php } endif;?>
+				</select>
 				</fieldset>
 				<fieldset style="width: 48%; float: right;">
 				<label><?php echo lang('v_man_office_city') ?></label><?php echo form_error('city'); ?>
@@ -264,6 +276,10 @@ $remark = array (
 			 $("#rateForm").val("时薪:"+$("input[name='hourRate']:checked").attr("title")+" 日薪:"+$("input[name='dayRate']:checked").attr("title")+" 月薪:"+$("input[name='monthRate']:checked").attr("title"));
 		});
 		
+		$("#rateType").change(function(){
+			$("#rate").load("<?php echo base_url();?>index.php?/company/office/rateSel/"+$("#rateType").val());
+		});
+
 		$("#cate1").change(function(){
 			$("#category").load("<?php echo base_url();?>index.php?/company/office/cateSel/"+$("#cate1").val());
 		});

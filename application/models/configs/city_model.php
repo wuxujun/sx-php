@@ -17,7 +17,7 @@ class City_model extends CI_Model
 	}
 
 	function getCityForPage($content){
-		$sql="select * from `T_city` limit ".$content->start.",".$content->end." ";
+		$sql="select id,type,cityId,cityName,pId,top from `T_city` limit ".$content->start.",".$content->end." ";
 		$query=$this->db->query($sql);
 		return $query;
 	}

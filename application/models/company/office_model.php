@@ -23,7 +23,31 @@ class Office_model extends CI_Model
 	}
 
 	function getMOffices($content){
-		$sql="SELECT * FROM `T_company_office` WHERE status<3 ";
+		$sql="SELECT a.id,a.name,a.address,a.workCity,a.rate,a.prop,a.week,a.companyId,b.name AS companyName,b.address AS companyAddr,b.category AS companyCate,b.scale,b.logo FROM `T_company_office` a,`T_company` b WHERE a.companyId=b.id AND a.status<3 ";
+		
+		$sql=$sql." ORDER BY a.id DESC  limit ".$content->start.",".$content->end." ";
+		$query=$this->db->query($sql);
+		return $query;
+	}
+
+	function getMOfficesForNums($content){
+		$sql="SELECT count(1) as num  FROM `T_company_office` a,`T_company` b WHERE a.companyId=b.id AND a.status<3  ";
+		$query=$this->db->query($sql);
+		if ($query!=null&&$query->num_rows()>0) {
+			return $query->first_row();
+		}	
+	}
+
+	function getOfficeForId($content){
+		$sql="select * from `T_company_office` where id=".$content->officeId;
+		$query=$this->db->query($sql);
+		return $query;
+	}
+
+	function getOfficeForCompany($content){
+		$sql="SELECT a.id,a.name,a.address,a.workCity,a.rate,a.prop,a.week,a.companyId,b.name AS companyName,b.address AS companyAddr,b.category AS companyCate,b.scale,b.logo FROM `T_company_office` a,`T_company` b WHERE a.companyId=b.id AND a.status<3 ";
+		$sql=$sql." AND a.companyId=".$content->companyId."  AND a.id<>".$content->officeId;
+
 		$query=$this->db->query($sql);
 		return $query;
 	}
@@ -106,7 +130,7 @@ class Office_model extends CI_Model
 	}
 
 	function getMyOfficeReq($content){
-		$sql="SELECT b.* FROM `T_office_req` as a,`T_company_office` as b  where a.officeId=b.id and a.mid='".$content->mid."' limit ".$content->start.",".$content->end." ";
+		$sql="SELECT a.id,a.name,a.address,a.workCity,a.rate,a.prop,a.week,a.companyId,c.status,b.name AS companyName,b.address AS companyAddr,b.category AS companyCate,b.scale,b.logo  FROM `T_office_req` as c,`T_company_office` as a,`T_company` AS b WHERE a.companyId=b.id AND c.officeId=a.id and c.mid='".$content->mid."' limit ".$content->start.",".$content->end." ";
 		$query=$this->db->query($sql);
 		return $query;
 	}
@@ -117,6 +141,26 @@ class Office_model extends CI_Model
 		if ($query!=null&&$query->num_rows()>0) {
 			return $query->first_row();
 		}	
+	}
+
+	function getMyOffice($content){
+		$sql="SELECT a.id,a.name,a.address,a.workCity,a.rate,a.prop,a.week,a.companyId,c.status,b.name AS companyName,b.address AS companyAddr,b.category AS companyCate,b.scale,b.logo  FROM `T_office_req` as c,`T_company_office` as a,`T_company` AS b WHERE a.companyId=b.id AND c.officeId=a.id and c.mid='".$content->mid."' and c.status=2 limit ".$content->start.",".$content->end." ";
+		$query=$this->db->query($sql);
+		return $query;
+	}
+
+	function getMyOfficeForNums($content){
+		$sql="select count(1) as num  from `T_office_req` where mid='".$content->mid."' and status=2 ";
+		$query=$this->db->query($sql);
+		if ($query!=null&&$query->num_rows()>0) {
+			return $query->first_row();
+		}	
+	}
+
+	function getOfficeReqs(){
+		$sql="SELECT a.rid,a.mid,a.reqTime,b.companyId,b.name as officeName,a.status FROM `T_office_req` as a,`T_company_office` as b  where a.officeId=b.id   ";
+		$query=$this->db->query($sql);
+		return $query;
 	}
 
 	//查询是否存在
@@ -139,6 +183,24 @@ class Office_model extends CI_Model
 			return $this->db->insert_id();
 		}
 		return 0;
+	}
+
+	function notifyOfficeReq($id)
+	{
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$arrayName = array('status' => '1'
+		 );
+		$this->db->where('rid',$id);
+		$this->db->update('office_req',$arrayName);
+	}
+
+	function agreeOfficeReq($id)
+	{
+		$timezonestimeagreestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$arrayName = array('status' => '2'
+		 );
+		$this->db->where('rid',$id);
+		$this->db->update('office_req',$arrayName);
 	}
 
 	function search($content){

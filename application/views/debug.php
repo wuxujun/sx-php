@@ -2,12 +2,12 @@
 $content = array (
 		'name' => 'content',
 		'id' => 'content',
-		'value'=>'{"umeng_token":"AsjZiHN1i1GmZ7qeO2wH4HRYQq1bXtEbUGpshRxYDEji","start":0,"end":"20","imei":"ffffffffb860166e77d158365b72660a","keyword":"78"}',
+		'value'=>'{"password":"e10adc3949ba59abbe56e057f20f883e","umeng_token":"1234567890abcdefghij1234567890abcdefghij","mobile":"vienna@139.com","platform":"ios","mid":0,"imei":"1234567890abcdefghij1234567890abcdefghij"}',
 		'cols'=>100, 
 );
 
 ?>
-<?php echo form_open('ums/resumeHonor'); ?>
+<?php echo form_open('ums/login'); ?>
 <section id="main" class="column">
 	<h4 class="alert_info" id='msg' style="display: none"></h4>
 

@@ -23,7 +23,15 @@ class Member_model extends CI_Model
 	}
 
 	function getMember($mobile){
-		$sql="select *  from `T_member` where mobile=".$mobile;
+		$sql="select *  from `T_member` where mobile='".$mobile."' ";
+		$query=$this->db->query($sql);
+		if ($query!=null&&$query->num_rows()>0) {
+			return $query->first_row();
+		}
+	}
+
+	function getMemberForEmail($email){
+		$sql="select *  from `T_member` where email='".$email."' ";
 		$query=$this->db->query($sql);
 		if ($query!=null&&$query->num_rows()>0) {
 			return $query->first_row();
@@ -78,9 +86,9 @@ class Member_model extends CI_Model
 	}
 
 
-	function getMemberInfo($id)
+	function getMemberInfoForMid($mid)
 	{
-		$sql="SELECT * FROM T_member_info  WHERE member_id =".$id;
+		$sql="SELECT a.id,a.mobile,a.email,a.userNick as userName,a.userAvatar,b.brithday,b.edu as schoolCode,b.eduName as school,b.sex,b.specialty as specialtyCode,b.specialtyName as specialty,b.grade as gradeCode,b.gradeName as grade FROM t_member a,t_member_info b WHERE a.id=b.mid AND  b.mid =".$mid;
 		$query=$this->db->query($sql);
 		return $query;
 	}
@@ -96,7 +104,7 @@ class Member_model extends CI_Model
 
 	function getMemberInfoForID($id)
 	{
-		$sql="select *  from `T_member_info` where memberid=".$id;
+		$sql="select *  from `T_member_info` where mid=".$id;
 		$query=$this->db->query($sql);
 		if ($query!=null&&$query->num_rows()>0) {
 			return $query->first_row();
@@ -144,14 +152,13 @@ class Member_model extends CI_Model
 	function addLocation($content)
 	{
 		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
-		$arrayName = array('mid' => $content->uid,
-			'uuid'=>$content->uuid,
+		$arrayName = array(
 			'imei'=>$content->imei,
-			'longitude'=>$content->longitude,
-			'latitude'=>$content->latitude,
+			'lng'=>$content->longitude,
+			'lat'=>$content->latitude,
 			'addtime'=>date('Y-m-d H:i:s')
 		 );
-		$this->db->insert('member_loc',$arrayName);
+		$this->db->insert('user_loc',$arrayName);
 	}
 
 	//手机端注册
@@ -177,6 +184,15 @@ class Member_model extends CI_Model
 		$this->db->update("member",$arrayName);
 	}
 
+	function changeLoginForEmail($content)
+	{
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$this->db->where("email",$content->mobile);
+		$arrayName = array('imei' =>$content->imei,'lastlogintime'=>date('Y-m-d H:i:s'));
+		$this->db->update("member",$arrayName);
+	}
+
+
 	function changePassword($content)
 	{
 		$this->db->where("mobile",$content->username);
@@ -197,7 +213,7 @@ class Member_model extends CI_Model
 	}
 
 	function getMyCollects($content){
-		$sql="select * from `v_my_collect`  where mid=".$content->mid." limit ".$content->start.",".$content->end." ";
+		$sql="SELECT a.id,a.name,a.address,a.workCity,a.rate,a.prop,a.week,a.companyId,b.name as companyName,b.address as companyAddr,b.category as companyCate,b.scale,b.logo FROM `v_my_collect` a,`t_company` b WHERE a.companyId=b.id AND a.mid=".$content->mid." limit ".$content->start.",".$content->end." ";
 		return $query=$this->db->query($sql);
 	}
 
@@ -309,5 +325,49 @@ class Member_model extends CI_Model
 		$this->db->update('member',$arrayName);	
 	}
 
+	function updateMemberForId($content)
+	{
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$arrayName = array(
+			'userNick'=>$content->userName,
+			'email'=>$content->email
+		 );
+		$this->db->where("id",$content->mid);
+		$this->db->update('member',$arrayName);	
+	}
+
+	function addMemberInfo($content)
+	{
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$arrayName = array('mid' => $content->mid,
+			'sex'=>$content->sex,
+			'brithday'=>$content->brithday,
+			'edu'=>$content->schoolCode,
+			'eduName'=>$content->school,
+			'specialty'=>$content->specialtyCode,
+			'specialtyName'=>$content->specialty,
+			'grade'=>$content->gradeCode,
+			'gradeName'=>$content->grade,
+			'addtime'=>date('Y-m-d H:i:s')
+		 );
+		$this->db->insert('member_info',$arrayName);
+	}
+
+	function updateMemberInfoForMid($content)
+	{
+		$timezonestimestamp = gmt_to_local(local_to_gmt(), $this->config->item('timezones'));
+		$arrayName = array(
+			'sex'=>$content->sex,
+			'brithday'=>$content->brithday,
+			'edu'=>$content->schoolCode,
+			'eduName'=>$content->school,
+			'specialty'=>$content->specialtyCode,
+			'specialtyName'=>$content->specialty,
+			'grade'=>$content->gradeCode,
+			'gradeName'=>$content->grade	
+		 );
+		$this->db->where("mid",$content->mid);
+		$this->db->update('member_info',$arrayName);	
+	}
 }
 

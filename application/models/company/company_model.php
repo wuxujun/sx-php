@@ -10,6 +10,12 @@ class Company_model extends CI_Model
 		date_default_timezone_set('Asia/Shanghai');
 	}
 
+	function getCompanyForId($content){
+		$sql="select * from `T_company` where id=".$content->companyId;
+		$query=$this->db->query($sql);
+		return $query;
+	}
+
 	function getConfigTops(){
 		$sql="SELECT * FROM `T_config_top` ";
 		$query=$this->db->query($sql);

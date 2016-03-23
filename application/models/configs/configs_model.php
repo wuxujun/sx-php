@@ -10,6 +10,11 @@ class Configs_model extends CI_Model
 		date_default_timezone_set('Asia/Shanghai');
 	}
 
+	function getDataConfig(){
+		$sql="select * from `T_data_config` where state=0 ";
+		$query=$this->db->query($sql);
+		return $query;
+	}
 	function getConfigss(){
 		$sql="select * from `T_params` ";
 		$query=$this->db->query($sql);
@@ -24,7 +29,7 @@ class Configs_model extends CI_Model
 	}
 
 	function getConfigForPage($content){
-		$sql="select * from `T_params` limit ".$content->start.",".$content->end." ";
+		$sql="select id,type,code,name from `T_params` limit ".$content->start.",".$content->end." ";
 		$query=$this->db->query($sql);
 		return $query;
 	}

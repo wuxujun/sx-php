@@ -17,7 +17,7 @@ class Edu_model extends CI_Model
 	}
 
 	function getEduForPage($content){
-		$sql="select * from `T_params_edu` limit ".$content->start.",".$content->end." ";
+		$sql="select id,province,cityId,type,pId,eduCode,eduName,eduAddress,eduTel,eduContact,state from `T_params_edu` limit ".$content->start.",".$content->end." ";
 		$query=$this->db->query($sql);
 		return $query;
 	}

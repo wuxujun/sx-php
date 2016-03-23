@@ -22,6 +22,8 @@ $pid = array('name' =>'id' ,'id'=>'id','value'=>set_value('id',isset($configsInf
 							<option value="5" <?php if(isset($configsInfo)&&$configsInfo->type=='5'){ echo "selected";}?>>工作经验</option>
 							<option value="6" <?php if(isset($configsInfo)&&$configsInfo->type=='6'){ echo "selected";}?>>是否留用</option>
 							<option value="7" <?php if(isset($configsInfo)&&$configsInfo->type=='7'){ echo "selected";}?>>排序参数</option>
+							<option value="8" <?php if(isset($configsInfo)&&$configsInfo->type=='8'){ echo "selected";}?>>语言水平</option>
+							<option value="9" <?php if(isset($configsInfo)&&$configsInfo->type=='9'){ echo "selected";}?>>距离参数</option>
 					</select>
 					</fieldset>
 						<fieldset>

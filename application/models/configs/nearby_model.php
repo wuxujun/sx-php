@@ -16,7 +16,7 @@ class Nearby_model extends CI_Model
 	}
 
 	function getNearbyForPage($content){
-		$sql="select * from `T_params_nearby` limit ".$content->start.",".$content->end." ";
+		$sql="select id,province,cityId,type,pId,code,title,state from `T_params_nearby` limit ".$content->start.",".$content->end." ";
 		$query=$this->db->query($sql);
 		return $query;
 	}

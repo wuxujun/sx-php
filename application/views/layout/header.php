@@ -230,17 +230,17 @@ type="text/javascript"></script>
 			<li class="icn_add_apps"><?php echo anchor('/company/category', lang('m_company_category'));?></li>
 		<?php endif;?>
 			<li class="icn_add_apps"><?php echo anchor('/company/office', lang('m_company_office'));?></li>
-			<li class="icn_add_apps"><?php echo anchor('/company/resume', lang('m_company_resume'));?></li>
+			<li class="icn_add_apps"><?php echo anchor('/company/officeReq', lang('m_company_office_req'));?></li>
 		</ul>
-		<?php if(isset($admin)&& !(isset($product))):?>
 		<h3><?php echo lang('m_configs') ?></h3>
 		<ul class="toggle">
+			<?php if(isset($admin)&& !(isset($product))):?>
 			<li class="icn_add_apps"><?php echo anchor('/configs/configs', lang('m_configs_info'));?></li>
+			<?php endif;?>
 			<li class="icn_add_apps"><?php echo anchor('/configs/city', lang('m_configs_city'));?></li>
 			<li class="icn_add_apps"><?php echo anchor('/configs/edu', lang('m_configs_edu'));?></li>
 			<li class="icn_add_apps"><?php echo anchor('/configs/nearby', lang('m_configs_nearby'));?></li>
 		</ul>
-		<?php endif;?>
 		<h3><?php echo lang('m_member') ?></h3>
 		<ul class="toggle">
 			<li class="icn_add_apps"><?php echo anchor('/member/member', lang('m_member_info'));?></li>

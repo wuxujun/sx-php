@@ -43,6 +43,8 @@
 							<option value="5">工作经验</option>
 							<option value="6">是否留用</option>
 							<option value="7">排序参数</option>
+							<option value="8">语言水平</option>
+							<option value="9">距离参数</option>
 					</select>
 					</fieldset>
 						<fieldset>
@@ -102,6 +104,10 @@ function pageselectCallback(page_index, jq){
 			msg = msg + "是否留用";	
 		}else if(infos[i+index].type==7){
 			msg = msg + "排序参数";	
+		}else if(infos[i+index].type==8){
+			msg = msg + "语言水平";	
+		}else if(infos[i+index].type==9){
+			msg = msg + "距离参数";	
 		}else{
 			msg= msg+"公司规模";
 		}
